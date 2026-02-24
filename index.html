@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Révolution ChatGPT - Exposé</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>LA RÉVOLUTION CHATGPT</h1>
+
+    <section class="card" onclick="toggleCard(this)">
+        <h2>01. Qu'est-ce que c'est ?</h2>
+        <div class="content">
+            <ul>
+                <li>Intelligence Artificielle Générative</li>
+                <li>Modèle de langage (LLM)</li>
+                <li>Interface conversationnelle</li>
+            </ul>
+        </div>
+    </section>
+
+    <div id="simulator">
+        <h3>Interactivité : Le moteur de prédiction</h3>
+        <p>Phrase : "Le chat mange la..."</p>
+        <button onclick="simulateNextWord()">Prédire le mot suivant</button>
+        <div id="prediction-result"></div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
