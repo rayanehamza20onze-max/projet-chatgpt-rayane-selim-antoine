@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LLM Architecture | Master Thesis Presentation</title>
+    <title>Neural Research | L'Ére des Transformers</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,8 +13,8 @@
 
     <main class="container">
         <header class="glass-header">
-            <h1>NEURAL ARCHITECTURE EXPLORER</h1>
-            <p>Analyse des Systèmes Transformateurs et Gouvernance de l'IA</p>
+            <h1>LA RÉVOLUTION LLM</h1>
+            <p>Analyse des Architectures d'Attention et Gouvernance Algorithmique</p>
         </header>
 
         <div id="deck">
@@ -22,43 +22,40 @@
                 <div class="card-num">01</div>
                 <h2>Ontologie & Self-Attention</h2>
                 <div class="content">
-                    <p>Déconstruction du mécanisme <strong>Scaled Dot-Product Attention</strong>.</p>
+                    <p>Déconstruction du mécanisme <strong>Scaled Dot-Product Attention</strong>. Comment les Transformers pondèrent l'importance sémantique de chaque token.</p>
                     <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400" class="card-img">
                 </div>
             </section>
 
             <section class="card" onclick="App.toggle(this)">
                 <div class="card-num">02</div>
-                <h2>Inférence Stochastique</h2>
+                <h2>Mécanique Stochastique</h2>
                 <div class="content">
-                    <p>Modélisation de la distribution de probabilité via <em>Logits & Softmax</em>.</p>
+                    <p>Inférence par échantillonnage de probabilités. Rôle de la fonction <strong>Softmax</strong> et de la Température dans la créativité de l'IA.</p>
                 </div>
             </section>
 
             <section class="card" onclick="App.toggle(this)">
                 <div class="card-num">03</div>
-                <h2>Épistémologie des Biais</h2>
+                <h2>Épistémologie & Biais</h2>
                 <div class="content">
-                    <p>Analyse de la convergence et des risques d'hallucination systémique.</p>
+                    <p>Limites du <em>Symbol Grounding</em>. Analyse des hallucinations statistiques et des biais cognitifs hérités des corpus d'entraînement.</p>
                 </div>
             </section>
-            
-            </div>
+        </div>
 
         <section id="ai-engine" class="glass-panel">
-            <h3>Système d'Inférence Hybride (JS/Python/SQL)</h3>
+            <h3>Pipeline d'Inférence Hybride (Simulation API)</h3>
             <div id="console-output"></div>
-            <div class="controls">
-                <button onclick="App.runFullPipeline()">Exécuter Pipeline Complet</button>
-            </div>
+            <button class="btn-primary" onclick="App.runFullPipeline()">Exécuter l'Inférence Master</button>
         </section>
 
         <section id="quiz" class="glass-panel">
-            <h2>Validation des Compétences Académiques</h2>
+            <h2>Évaluation de l'Expertise</h2>
             <div id="quiz-ui">
-                <p id="q-text">Initialisation du protocole d'examen...</p>
+                <p id="q-text">Prêt pour l'examen de certification ?</p>
                 <div id="q-options"></div>
-                <button id="q-start" onclick="Quiz.start()">Démarrer</button>
+                <button id="q-start" onclick="Quiz.start()">Démarrer le Test</button>
             </div>
         </section>
     </main>
