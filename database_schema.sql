@@ -1,25 +1,30 @@
--- Schéma de la base de données pour l'Exposé "La Révolution ChatGPT"
--- Objectif : Tracer les sources citées (INSEE, Radio France, etc.)
+-- Architecture relationnelle pour la traçabilité éthique des modèles
+CREATE SCHEMA IF NOT EXISTS ia_governance;
 
-CREATE DATABASE IF NOT EXISTS ExposeIA;
-USE ExposeIA;
-
--- Table des sources documentaires
-CREATE TABLE Sources (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nom_media VARCHAR(100) NOT NULL,
-    type_support ENUM('Article', 'Rapport', 'Podcast', 'Vidéo'),
-    date_publication DATE,
-    url_source TEXT,
-    note_fiabilite INT CHECK (note_fiabilite BETWEEN 1 AND 5)
+-- Table des Checkpoints (Versionnage du modèle)
+CREATE TABLE ia_governance.model_checkpoints (
+    checkpoint_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    architecture VARCHAR(50) NOT NULL, -- ex: 'Transformer', 'MoE'
+    parameters_count BIGINT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insertion des sources utilisées pour la présentation
-INSERT INTO Sources (nom_media, type_support, date_publication, url_source, note_fiabilite)
-VALUES 
-('Radio France', 'Podcast', '2023-11-15', 'https://www.radiofrance.fr/ia-revolution', 5),
-('Le Monde', 'Article', '2024-01-10', 'https://www.lemonde.fr/technologies', 5),
-('INSEE', 'Rapport', '2023-06-20', 'https://www.insee.fr/stats/ia-emploi', 4);
+-- Table d'Audit Éthique (Dataset Compliance)
+CREATE TABLE ia_governance.dataset_audit (
+    audit_id SERIAL PRIMARY KEY,
+    fk_model_id UUID REFERENCES ia_governance.model_checkpoints(checkpoint_id),
+    source_corpus VARCHAR(255),
+    bias_index DECIMAL(4, 3), -- Mesure statistique du biais
+    carbon_footprint_kg DECIMAL(10, 2)
+);
 
--- Requête pour afficher les sources les plus fiables à l'écran lors de l'oral
--- SELECT * FROM Sources WHERE note_fiabilite >= 4;
+-- Insertion de données de test pour l'oral
+INSERT INTO ia_governance.model_checkpoints (architecture, parameters_count)
+VALUES ('Transformer-Large', 175000000000);
+
+-- Vue d'analyse pour le jury
+CREATE VIEW ia_governance.global_health_score AS
+SELECT architecture, AVG(bias_index) as reliability
+FROM ia_governance.model_checkpoints c
+JOIN ia_governance.dataset_audit a ON c.checkpoint_id = a.fk_model_id
+GROUP BY architecture;
