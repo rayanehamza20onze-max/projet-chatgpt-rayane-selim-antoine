@@ -3,33 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Révolution ChatGPT - Exposé</title>
+    <title>LLM Architecture | Master Thesis Presentation</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <video autoplay muted loop id="bg-video">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-nodes-and-connections-23517-large.mp4" type="video/mp4">
+    </video>
 
-<div class="container">
-    <h1>LA RÉVOLUTION CHATGPT</h1>
+    <main class="container">
+        <header class="glass-header">
+            <h1>NEURAL ARCHITECTURE EXPLORER</h1>
+            <p>Analyse des Systèmes Transformateurs et Gouvernance de l'IA</p>
+        </header>
 
-    <section class="card" onclick="toggleCard(this)">
-        <h2>01. Qu'est-ce que c'est ?</h2>
-        <div class="content">
-            <ul>
-                <li>Intelligence Artificielle Générative</li>
-                <li>Modèle de langage (LLM)</li>
-                <li>Interface conversationnelle</li>
-            </ul>
-        </div>
-    </section>
+        <div id="deck">
+            <section class="card" onclick="App.toggle(this)">
+                <div class="card-num">01</div>
+                <h2>Ontologie & Self-Attention</h2>
+                <div class="content">
+                    <p>Déconstruction du mécanisme <strong>Scaled Dot-Product Attention</strong>.</p>
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400" class="card-img">
+                </div>
+            </section>
 
-    <div id="simulator">
-        <h3>Interactivité : Le moteur de prédiction</h3>
-        <p>Phrase : "Le chat mange la..."</p>
-        <button onclick="simulateNextWord()">Prédire le mot suivant</button>
-        <div id="prediction-result"></div>
-    </div>
-</div>
+            <section class="card" onclick="App.toggle(this)">
+                <div class="card-num">02</div>
+                <h2>Inférence Stochastique</h2>
+                <div class="content">
+                    <p>Modélisation de la distribution de probabilité via <em>Logits & Softmax</em>.</p>
+                </div>
+            </section>
 
-<script src="script.js"></script>
+            <section class="card" onclick="App.toggle(this)">
+                <div class="card-num">03</div>
+                <h2>Épistémologie des Biais</h2>
+                <div class="content">
+                    <p>Analyse de la convergence et des risques d'hallucination systémique.</p>
+                </div>
+            </section>
+            
+            </div>
+
+        <section id="ai-engine" class="glass-panel">
+            <h3>Système d'Inférence Hybride (JS/Python/SQL)</h3>
+            <div id="console-output"></div>
+            <div class="controls">
+                <button onclick="App.runFullPipeline()">Exécuter Pipeline Complet</button>
+            </div>
+        </section>
+
+        <section id="quiz" class="glass-panel">
+            <h2>Validation des Compétences Académiques</h2>
+            <div id="quiz-ui">
+                <p id="q-text">Initialisation du protocole d'examen...</p>
+                <div id="q-options"></div>
+                <button id="q-start" onclick="Quiz.start()">Démarrer</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
