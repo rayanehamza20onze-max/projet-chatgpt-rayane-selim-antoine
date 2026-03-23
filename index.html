@@ -1,1 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exposé : La Révolution ChatGPT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+    <header class="main-header">
+        <div class="header-content">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="Logo ChatGPT" class="header-logo">
+            <h1>La Révolution ChatGPT</h1>
+            <p class="author-tag">Présenté par <strong>Rayane, Selim et Antoine</strong></p>
+            <div class="badge-date">Mars 2026</div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="cards-grid">
+            <div class="card" onclick="openModal('intro-modal')">
+                <span class="icon">📖</span>
+                <h3>1. Introduction</h3>
+                <p>Origines et Ascension</p>
+            </div>
+
+            <div class="card" onclick="openModal('tech-modal')">
+                <span class="icon">🤖</span>
+                <h3>2. Technique</h3>
+                <p>Architecture Transformer</p>
+            </div>
+
+            <div class="card" onclick="openModal('stats-modal')">
+                <span class="icon">📊</span>
+                <h3>3. Statistiques</h3>
+                <p>Chiffres et Records</p>
+            </div>
+
+            <div class="card" onclick="openModal('limites-modal')">
+                <span class="icon">⚠️</span>
+                <h3>4. Limites</h3>
+                <p>Hallucinations et Éthique</p>
+            </div>
+
+            <div class="card" onclick="openModal('ressources-modal')">
+                <span class="icon">📚</span>
+                <h3>5. Ressources</h3>
+                <p>Sources et Crédits</p>
+            </div>
+
+            <div class="card" onclick="openModal('quiz-modal')" style="background: linear-gradient(145deg, #1e1e20, #2c2c2e); border-color: var(--primary);">
+                <span class="icon">🎮</span>
+                <h3 style="color: var(--primary);">Quiz Interactif</h3>
+                <p>Testez vos connaissances</p>
+            </div>
+        </section>
+
+        <div id="intro-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('intro-modal')">&times;</span>
+                <h2>1. Introduction et Histoire</h2>
+                <div class="detail-body">
+                    <p>ChatGPT est un agent conversationnel lancé par <strong>OpenAI</strong> le 30 novembre 2022. Contrairement aux anciens chatbots, il est capable de maintenir un contexte sur plusieurs échanges et de générer du contenu créatif.</p>
+                    <p>L'histoire commence en 2015 avec la création d'OpenAI par Sam Altman et Elon Musk (qui a quitté le projet plus tard). Le but initial était de créer une IA "Open" (ouverte) pour éviter qu'une seule entreprise ne contrôle cette technologie puissante.</p>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/oQpfXFB9AKs" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tech-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('tech-modal')">&times;</span>
+                <h2>2. Comment ça marche ?</h2>
+                <div class="detail-body">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Transformer_full.png/500px-Transformer_full.png" class="modal-img" style="max-width: 300px; display: block; margin: auto;">
+                    <p>Le secret réside dans l'architecture <strong>Transformer</strong>. Imaginez que l'IA ne lit pas les mots un par un, mais regarde toute la phrase en même temps pour comprendre quels mots sont les plus importants entre eux (c'est le mécanisme d'attention).</p>
+                    <p>Elle utilise le <strong>RLHF</strong> (Reinforcement Learning from Human Feedback) : des humains ont noté les réponses de l'IA pour lui apprendre à être polie, utile et non dangereuse.</p>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/7ell8KEbhJo" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="stats-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('stats-modal')">&times;</span>
+                <h2>3. Statistiques et Records</h2>
+                <div class="detail-body">
+                    <p>Voici pourquoi on parle de "révolution" :</p>
+                    <ul class="stats-list">
+                        <li>🚀 <strong>1 million d'utilisateurs</strong> en seulement 5 jours.</li>
+                        <li>🌍 <strong>100 millions d'utilisateurs</strong> en 2 mois (Record historique).</li>
+                        <li>🧠 <strong>GPT-3</strong> possède 175 milliards de paramètres.</li>
+                        <li>💧 <strong>Écologie :</strong> Une conversation de 20 questions consomme environ 500ml d'eau pour refroidir les serveurs.</li>
+                    </ul>
+                    <p>Comparaison de vitesse pour atteindre 100M d'utilisateurs :</p>
+                    <table class="stats-table">
+                        <tr><th>Plateforme</th><th>Temps</th></tr>
+                        <tr><td>Netflix</td><td>10 ans</td></tr>
+                        <tr><td>Instagram</td><td>2,5 ans</td></tr>
+                        <tr><td>TikTok</td><td>9 mois</td></tr>
+                        <tr class="highlight-row"><td>ChatGPT</td><td>2 mois</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="limites-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('limites-modal')">&times;</span>
+                <h2>4. Limites et Éthique</h2>
+                <div class="detail-body">
+                    <p>L'IA n'est pas parfaite. Elle souffre d'<strong>hallucinations</strong> : elle peut inventer une date historique ou un livre qui n'existe pas avec une assurance totale.</p>
+                    <p>Il y a aussi des enjeux de <strong>Propriété Intellectuelle</strong> (l'IA a appris sur des textes d'auteurs sans les payer) et des risques de désinformation (création de Fake News massives).</p>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/RKtR-lSOq2g" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="ressources-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('ressources-modal')">&times;</span>
+                <h2>5. Ressources et Sources</h2>
+                <div class="detail-body">
+                    <div class="source-card">
+                        <p><strong>Articles :</strong> Le Monde (Pixels), Science et Avenir, Numerama.</p>
+                        <p><strong>Vidéos :</strong> Science Étonnante, Fabien Olicard, Micode.</p>
+                        <p><strong>Données :</strong> OpenAI Official Reports 2024-2026.</p>
+                    </div>
+                    <hr style="border-color: #333; margin: 20px 0;">
+                    <p style="font-size: 0.9rem; text-align: center;">Projet scolaire réalisé dans le cadre du cours de technologie / SNT.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="quiz-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('quiz-modal')">&times;</span>
+                <h2 style="text-align: center;">Challenge IA</h2>
+                <div id="quiz-area">
+                    <p id="question" style="text-align: center; font-weight: bold;">Préparation du quiz...</p>
+                    <div id="options"></div>
+                    <div id="score-text"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 40px; color: #666; font-size: 0.8rem;">
+        &copy; 2026 - Exposé Révolution ChatGPT - Rayane, Selim, Antoine.
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
