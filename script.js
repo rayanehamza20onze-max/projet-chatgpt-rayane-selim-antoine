@@ -1,17 +1,22 @@
 /**
- * GESTION DES MODALES
- * Permet d'ouvrir et fermer les fenêtres avec animations
+ * ============================================================================
+ * PROJET : LA RÉVOLUTION CHATGPT
+ * AUTEURS : Rayane Salim, Antoine et Selim
+ * DESCRIPTION : Script de gestion de l'interface interactive (Modales & Quiz)
+ * ============================================================================
  */
+
+/**
+ * 1. GESTION DES FENÊTRES MODALES
+ * Permet d'ouvrir et fermer les sections de l'exposé.
+ */
+
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = "block";
-        document.body.style.overflow = "hidden"; // Empêche le scroll en arrière-plan
-        
-        // Si c'est le quiz, on le réinitialise à l'ouverture
-        if (modalId === 'quiz-modal') {
-            resetQuiz();
-        }
+        // Désactive le scroll de la page de fond
+        document.body.style.overflow = "hidden";
     }
 }
 
@@ -19,132 +24,140 @@ function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = "none";
+        // Réactive le scroll de la page de fond
         document.body.style.overflow = "auto";
         
-        // Arrêter les vidéos YouTube si une modale se ferme
+        // Arrête la lecture des vidéos YouTube en réinitialisant la source
         const iframes = modal.querySelectorAll('iframe');
-        iframes.forEach(iframe => {
-            const src = iframe.src;
-            iframe.src = src; 
+        iframes.forEach(i => {
+            const src = i.src;
+            i.src = '';
+            i.src = src;
         });
     }
 }
 
-// Fermeture en cliquant à l'extérieur de la fenêtre blanche
-window.onclick = function(event) {
+// Fermeture automatique si on clique en dehors de la fenêtre blanche
+window.addEventListener('click', function(event) {
     if (event.target.classList.contains('modal')) {
-        const activeModals = document.querySelectorAll('.modal[style*="display: block"]');
-        activeModals.forEach(m => closeModal(m.id));
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(m => {
+            m.style.display = "none";
+            const vids = m.querySelectorAll('iframe');
+            vids.forEach(v => v.src = v.src);
+        });
+        document.body.style.overflow = "auto";
     }
-};
+});
 
 /**
- * SYSTÈME DE QUIZ AVANCÉ
+ * 2. SYSTÈME DE QUIZ (QCM)
+ * Contient les questions techniques et éthiques sur l'IA.
  */
+
 const quizData = [
     { 
-        q: "En quelle année OpenAI a-t-elle été fondée ?", 
-        a: ["2010", "2015", "2018", "2022"], 
+        q: "En quelle année la société OpenAI a-t-elle été fondée ?", 
+        a: ["2012", "2015", "2022"], 
         c: 1 
     },
     { 
-        q: "Combien de temps a-t-il fallu à ChatGPT pour atteindre 100 millions d'utilisateurs ?", 
-        a: ["2 jours", "2 mois", "9 mois", "2 ans"], 
+        q: "ChatGPT est basé sur l'architecture 'Transformer'. Qu'est-ce que c'est ?", 
+        a: ["Un robot de film", "Un modèle mathématique de traitement du langage", "Un type de processeur"], 
         c: 1 
     },
     { 
-        q: "Quelle architecture mathématique utilise ChatGPT ?", 
-        a: ["CNN", "RNN", "Transformer", "Blockchain"], 
+        q: "En combien de temps ChatGPT a atteint 100 millions d'utilisateurs ?", 
+        a: ["2 mois", "6 mois", "1 an"], 
+        c: 0 
+    },
+    { 
+        q: "Quel est le rôle du 'Prompt Engineering' ?", 
+        a: ["Réparer les serveurs", "L'art de rédiger des instructions précises pour l'IA", "Coder l'algorithme de base"], 
+        c: 1 
+    },
+    { 
+        q: "Qu'est-ce qu'un 'Token' dans le fonctionnement de ChatGPT ?", 
+        a: ["Une pièce de monnaie", "Une unité de texte (morceau de mot)", "Un mot de passe"], 
+        c: 1 
+    },
+    { 
+        q: "Quelle entreprise a investi 10 milliards de dollars dans OpenAI ?", 
+        a: ["Google", "Apple", "Microsoft"], 
         c: 2 
     },
     { 
-        q: "Que signifie le 'P' dans GPT ?", 
-        a: ["Private", "Pre-trained", "Powerful", "Program"], 
+        q: "ChatGPT est-il capable de réfléchir et de comprendre le sens de ses phrases ?", 
+        a: ["Oui, il a une conscience", "Non, il prédit statistiquement le mot suivant", "Seulement quand il est connecté à Internet"], 
         c: 1 
     },
     { 
-        q: "ChatGPT est-il un moteur de recherche ?", 
-        a: ["Oui, comme Google", "Non, c'est un modèle de langage"], 
+        q: "Quel est le principal problème éthique lié aux données d'entraînement ?", 
+        a: ["La consommation d'eau", "Les biais (préjugés) sexistes ou racistes", "Le prix de l'abonnement"], 
+        c: 1 
+    },
+    { 
+        q: "Quelle est la principale différence entre ChatGPT et Google ?", 
+        a: ["Google est plus rapide", "ChatGPT génère une réponse unique au lieu d'une liste de liens", "Il n'y a aucune différence"], 
         c: 1 
     }
 ];
 
-let currentQuestion = 0;
-let score = 0;
+let currentStep = 0; 
+let finalScore = 0;
 
+function runQuiz() {
+    const questionContainer = document.getElementById("question");
+    const optionsContainer = document.getElementById("options");
+    const scoreDisplay = document.getElementById("score-text");
+
+    // Vérifie si l'on a atteint la fin du quiz
+    if (currentStep >= quizData.length) {
+        questionContainer.innerHTML = "🎯 Quiz Terminé !";
+        optionsContainer.innerHTML = `
+            <div style="text-align:center; padding: 20px;">
+                <p>Bravo d'avoir complété ce test sur l'intelligence artificielle.</p>
+                <button class="quiz-btn" onclick="resetQuiz()">Recommencer le Quiz</button>
+            </div>
+        `;
+        scoreDisplay.innerHTML = `Score Final : <strong>${finalScore} / ${quizData.length}</strong>`;
+        return;
+    }
+
+    // Affichage de la question actuelle
+    const currentData = quizData[currentStep];
+    questionContainer.innerText = `${currentStep + 1}. ${currentData.q}`;
+    optionsContainer.innerHTML = ""; 
+
+    // Création des boutons de réponse
+    currentData.a.forEach((optionText, index) => {
+        const btn = document.createElement("button");
+        btn.innerText = optionText;
+        btn.className = "quiz-btn";
+        
+        btn.onclick = () => {
+            if (index === currentData.c) {
+                finalScore++;
+            }
+            currentStep++; 
+            runQuiz(); 
+        };
+        
+        optionsContainer.appendChild(btn);
+    });
+}
+
+// Fonction pour remettre le quiz à zéro
 function resetQuiz() {
-    currentQuestion = 0;
-    score = 0;
+    currentStep = 0;
+    finalScore = 0;
     document.getElementById("score-text").innerText = "";
     runQuiz();
 }
 
-function runQuiz() {
-    const questionEl = document.getElementById("question");
-    const optionsEl = document.getElementById("options");
-    const scoreEl = document.getElementById("score-text");
-
-    // Nettoyage de la zone
-    optionsEl.innerHTML = "";
-
-    if (currentQuestion >= quizData.length) {
-        displayResults();
-        return;
-    }
-
-    const data = quizData[currentQuestion];
-    questionEl.innerHTML = `<strong>Question ${currentQuestion + 1}/${quizData.length} :</strong><br>${data.q}`;
-
-    data.a.forEach((option, index) => {
-        const button = document.createElement("button");
-        button.innerText = option;
-        button.className = "quiz-btn animated-btn";
-        button.onclick = () => checkAnswer(index, button);
-        optionsEl.appendChild(button);
-    });
-}
-
-function checkAnswer(selectedIndex, clickedButton) {
-    const correctIndex = quizData[currentQuestion].c;
-    const allButtons = document.querySelectorAll(".quiz-btn");
-
-    // Désactiver les boutons pour éviter le double clic
-    allButtons.forEach(btn => btn.disabled = true);
-
-    if (selectedIndex === correctIndex) {
-        score++;
-        clickedButton.style.background = "#28a745"; // Vert
-        clickedButton.style.borderColor = "#28a745";
-    } else {
-        clickedButton.style.background = "#dc3545"; // Rouge
-        clickedButton.style.borderColor = "#dc3545";
-        allButtons[correctIndex].style.background = "#28a745"; // Montrer la bonne réponse
-    }
-
-    // Passer à la suite après un court délai
-    setTimeout(() => {
-        currentQuestion++;
-        runQuiz();
-    }, 1200);
-}
-
-function displayResults() {
-    const questionEl = document.getElementById("question");
-    const optionsEl = document.getElementById("options");
-    const scoreEl = document.getElementById("score-text");
-
-    questionEl.innerText = "Analyse terminée !";
-    
-    let appreciation = "";
-    if (score === quizData.length) appreciation = "🏆 Expert en IA !";
-    else if (score >= quizData.length / 2) appreciation = "👍 Pas mal du tout !";
-    else appreciation = "🧐 Relis bien l'exposé...";
-
-    scoreEl.innerHTML = `
-        <div class="result-box">
-            <span class="final-score">${score} / ${quizData.length}</span><br>
-            <p>${appreciation}</p>
-            <button class="quiz-btn" onclick="resetQuiz()" style="margin-top:20px; background:var(--primary)">Recommencer</button>
-        </div>
-    `;
-}
+/**
+ * 3. LANCEMENT AU CHARGEMENT
+ */
+window.onload = function() {
+    runQuiz();
+};
