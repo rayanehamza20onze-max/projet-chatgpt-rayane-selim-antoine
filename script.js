@@ -17,6 +17,11 @@ function openModal(modalId) {
         modal.style.display = "block";
         // Désactive le scroll de la page de fond
         document.body.style.overflow = "hidden";
+        
+        // Relance le quiz à l'ouverture pour s'assurer que l'affichage est forcé
+        if (modalId === 'quiz-modal') {
+            runQuiz();
+        }
     }
 }
 
@@ -115,9 +120,9 @@ function runQuiz() {
     if (currentStep >= quizData.length) {
         questionContainer.innerHTML = "🎯 Quiz Terminé !";
         optionsContainer.innerHTML = `
-            <div style="text-align:center; padding: 20px;">
+            <div style="text-align:center; padding: 20px; width: 100%;">
                 <p>Bravo d'avoir complété ce test sur l'intelligence artificielle.</p>
-                <button class="quiz-btn" onclick="resetQuiz()">Recommencer le Quiz</button>
+                <button class="quiz-btn" onclick="resetQuiz()" style="margin: 20px auto; max-width: 300px;">Recommencer le Quiz</button>
             </div>
         `;
         scoreDisplay.innerHTML = `Score Final : <strong>${finalScore} / ${quizData.length}</strong>`;
@@ -127,7 +132,13 @@ function runQuiz() {
     // Affichage de la question actuelle
     const currentData = quizData[currentStep];
     questionContainer.innerText = `${currentStep + 1}. ${currentData.q}`;
+    
+    // --- LIGNES POUR FORCER L'ÉLARGISSEMENT ---
     optionsContainer.innerHTML = ""; 
+    optionsContainer.style.display = "grid";
+    optionsContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(250px, 1fr))";
+    optionsContainer.style.gap = "20px";
+    optionsContainer.style.width = "100%";
 
     // Création des boutons de réponse
     currentData.a.forEach((optionText, index) => {
